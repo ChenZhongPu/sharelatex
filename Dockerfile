@@ -1,7 +1,8 @@
-FROM sharelatex/sharelatex:5
-# 目前sharelatex使用的是2023版本，而texlive默认是2024
-# 因此，需要手动设置2023版本的texlive
-RUN tlmgr option repository https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/tlnet-final/
+FROM sharelatex/sharelatex:5.0.4
+
+COPY check_tex.sh check_tex.sh
+RUN chmod +x check_tex.sh
+RUN ./check_tex.sh
 RUN tlmgr update --self
 RUN tlmgr install scheme-full
 
